@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import {header} from '../axios/header'
-import {GET_USER,getAvatar} from '../constant'
+import {GET_USER,getAvatar,PROFILE_URL_DETAIL} from '../constant'
 import _ from 'lodash'
 class AdminCustomers extends Component {
 
@@ -102,7 +102,7 @@ class AdminCustomers extends Component {
                 <td>{key + 1}</td>
                 <td> <img src={getAvatar(values.avatar)} style={{ width: '80%' }} /> </td>
                 <td>  {values.fullname} </td>
-                <td>  {values.username} </td>
+                <td>  <a target="blank" href={PROFILE_URL_DETAIL+values.id}>{values.username} </a></td>
                 <td>  <NavLink to="/admin/admin-orders" style={{color: '#000'}}>{values.uid}</NavLink> </td>
                 {/* <td>  <button onClick={() => this.show(values)} className="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Forwarding Address</button></td> */}
                 <td><button onClick={() => this.setRole(values.id, values.role)} data-toggle="modal" data-target="#exampleModalLong1" className="btn  btn-primary" >{values.roles !== undefined ? values.roles[0].rolename : 'Edit'}</button>

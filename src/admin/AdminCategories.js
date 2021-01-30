@@ -147,7 +147,7 @@ class AdminCategories extends Component {
                     <td > {isLoading?(<Skeleton />):key + 1}</td>
                     <td>  {isLoading?(<Skeleton/>):values.description} </td>
                     <td> {isLoading?(<Skeleton height={100}/>):(<img src={getAvatar(values.author.avatar)} style={{ width: 80 }} />)} </td>
-                    <td> <Fragment><img hidden={arrLoading[key] || isLoading} onLoad={()=>{const {arrLoading} = this.state;arrLoading[key] = 0;this.setState({ arrLoading: arrLoading });}} src={getAvatar(values.medias[0].media_url)} style={{ width: 80 }} />{arrLoading[key] || isLoading?(<Skeleton  width={80} height={80}/>):""}</Fragment></td>
+                    <td> <Fragment><a target="blank" href={MAIN_URL_DETAIL+values.id}><img hidden={arrLoading[key] || isLoading} onLoad={()=>{const {arrLoading} = this.state;arrLoading[key] = 0;this.setState({ arrLoading: arrLoading });}} src={getAvatar(values.medias[0].media_url)} style={{ width: 80 }} /></a>{arrLoading[key] || isLoading?(<Skeleton  width={80} height={80}/>):""}</Fragment></td>
                     <td>  {isLoading?(<Skeleton/>):values.author.fullname} </td>
                     <td>  {isLoading?(<Skeleton/>):values.author.username} </td>
                     <td>  {isLoading?(<Skeleton/>):values.author.roles.map((e)=> ( e.rolename+ '   ' ))} </td>
