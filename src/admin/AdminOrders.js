@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React, { Component,Link } from 'react'
 import {header} from '../axios/header'
-import {GET_REPORT_POST, POST_HANDLE_POST,MAIN_URL_DETAIL, getAvatar} from '../constant'
+import {GET_REPORT_POST, POST_HANDLE_POST,MAIN_URL_DETAIL,PROFILE_URL_DETAIL, getAvatar} from '../constant'
 import { Fragment } from 'react';
 import { notificationComponent } from './../utils/notification';
 import _ from 'lodash'
@@ -180,7 +180,7 @@ export default class AdminOrders extends Component {
 
                     <td >{isLoading?(<Skeleton />):key + 1}</td>
                     <td >{isLoading?(<Skeleton />):values.posts.description}</td>
-                    <td >{isLoading?(<Skeleton />):values.posts.author.username}</td>
+                    <td >{isLoading?(<Skeleton />):(<a target="blank" href={PROFILE_URL_DETAIL+values.posts.author.id}>{values.posts.author.username}</a>)}</td>
                     <td><Fragment><a target="blank" href={MAIN_URL_DETAIL+values.id}><img hidden={arrLoading[key] || isLoading} onLoad={()=>{const {arrLoading} = this.state;arrLoading[key] = 0;this.setState({ arrLoading: arrLoading });}} src={getAvatar(values.posts.medias[0].media_url)} style={{ width: 80 }} /></a>{arrLoading[key] || isLoading?(<Skeleton  width={80} height={80}/>):""}</Fragment></td>
                     <td data-toggle="modal" data-target="#exampleModalLong" >
                         {isLoading?(<Skeleton />):(<button className="btn btn-secondary" onClick={() => this.displayForwardingAddr(values.reportDetails)}>Details ({values.reportDetails.length}) </button>)}

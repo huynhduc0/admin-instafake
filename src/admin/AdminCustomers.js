@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import {header} from '../axios/header'
-import {GET_USER,getAvatar,PROFILE_URL_DETAIL} from '../constant'
+import {GET_USER,getAvatar,PROFILE_URL_DETAIL,MAIN_URL_DETAIL} from '../constant'
 import _ from 'lodash'
 class AdminCustomers extends Component {
 

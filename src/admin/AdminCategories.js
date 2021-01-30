@@ -2,7 +2,7 @@ import React, { Component , Fragment, Redirect } from 'react';
 import axios from 'axios';
 import Axios from 'axios';
 import { notificationComponent, sosanh } from './../utils/notification';
-import {GET_POST,POST_HANDLE, getAvatar} from '../constant'
+import {GET_POST,POST_HANDLE,MAIN_URL_DETAIL,PROFILE_URL_DETAIL, getAvatar} from '../constant'
 import {header} from '../axios/header'
 import _ from 'lodash';
 import Skeleton from 'react-loading-skeleton';
@@ -149,7 +149,7 @@ class AdminCategories extends Component {
                     <td> {isLoading?(<Skeleton height={100}/>):(<img src={getAvatar(values.author.avatar)} style={{ width: 80 }} />)} </td>
                     <td> <Fragment><a target="blank" href={MAIN_URL_DETAIL+values.id}><img hidden={arrLoading[key] || isLoading} onLoad={()=>{const {arrLoading} = this.state;arrLoading[key] = 0;this.setState({ arrLoading: arrLoading });}} src={getAvatar(values.medias[0].media_url)} style={{ width: 80 }} /></a>{arrLoading[key] || isLoading?(<Skeleton  width={80} height={80}/>):""}</Fragment></td>
                     <td>  {isLoading?(<Skeleton/>):values.author.fullname} </td>
-                    <td>  {isLoading?(<Skeleton/>):values.author.username} </td>
+                    <td>  {isLoading?(<Skeleton/>):(<a target="blank" href={PROFILE_URL_DETAIL+values.author.id}>{values.author.username}</a>)} </td>
                     <td>  {isLoading?(<Skeleton/>):values.author.roles.map((e)=> ( e.rolename+ '   ' ))} </td>
                     <td >{isLoading?(<Skeleton/>):!values.deactive?(<button  className="btn btn-success" onClick={() => this.handlePost(values)}>Active</button>):(<button  className="btn btn-sencondary" onClick={() => this.handlePost(values)}>Deactive</button>)}</td>
                     {/* <td style={{ textAlign: 'left' }}>{values.categoryName}</td> */}
