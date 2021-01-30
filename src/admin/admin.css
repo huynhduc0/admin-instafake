@@ -1,0 +1,85 @@
+#content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  flex-grow: 1;
+  min-height: calc(100vh - 56px);
+  margin-left: -225px;
+  padding-left: 225px;
+  top: 56px;
+  margin-left: 0;
+  transition: margin 0.15s ease-in-out;
+}
+
+#accordionSidebar {
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+#dataTable_filter input {
+  color: #000 !important;
+  border: solid 1px #000 !important;
+  padding: 0 10px;
+  border-radius: 10px;
+  margin: 0 15px !important;
+}
+
+#content-wrapper>table {
+  /* font-family: arial, sans-serif; */
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+
+#content-wrapper>td,
+#content-wrapper>th {
+  border: 1px solid #dddddd !important;
+  text-align: left !important;
+  padding: 8px !important;
+}
+
+#content-wrapper>tr:nth-child(even) {
+  background-color: #dddddd !important;
+}
+
+.modal-product {
+  color: #000 !important
+}
+
+.modal-product-input,
+.select-categoriesProduct {
+  border: solid 1px #000 !important;
+  color: #000 !important;
+  padding: 0 10px !important
+}
+
+.active-pink-4 input[type=text]:focus:not([readonly]) {
+  border: 1px solid #0069d9;
+  box-shadow: 0 0 0 1px #0069d9;
+}
+
+.active-pink-3 input[type=text] {
+  border: 1px solid #0069d9;
+  box-shadow: 0 0 0 1px #0069d9;
+
+}
+
+.btn-vy {
+  height: 38px;
+}
+
+.back-to-top {
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+}
+
+#accordionSidebar .nav-item {
+  font-weight: bold !important;
+  text-transform: uppercase;
+}
