@@ -50,7 +50,7 @@ export default class Sidebar extends Component {
                 </li>
 
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/admin/admin-customers">
+                    <NavLink className="nav-link" to="/admin/admin-users">
                     <i className="fa fa-user" aria-hidden="true"></i>
                         <span>Manage user</span></NavLink>
                 </li>
