@@ -216,9 +216,9 @@ class AdminCategories extends Component {
                                 <><button className="btn btn-primary" onClick={() => this.handlePost(values)}>Edit</button>
                                     {!values.status
                                         ?
-                                        <button className="btn btn-success" onClick={() => this.handlePost(values)}>Active</button>
+                                        <button className="btn btn-success" onClick={() => this.handlePost(values)}>ACTIVATE</button>
                                         :
-                                        <button className="btn btn-warning" onClick={() => this.handlePost(values)}>Deactive</button>}</>
+                                        <button className="btn btn-warning" onClick={() => this.handlePost(values)}>DEACTIVATE</button>}</>
                         }
 
                     </td>
@@ -274,11 +274,11 @@ class AdminCategories extends Component {
                                                             <input
                                                                 id="age1"
                                                                 name="status"
-                                                                value="active"
+                                                                value="ACTIVATE"
                                                                 type="radio"
                                                                 onChange={(event) => this.isChange(event)}
                                                             />
-                                                            <label for="age1">active</label>
+                                                            <label for="age1">ACTIVATE</label>
                                                             </div>
                                                             
 
@@ -287,11 +287,11 @@ class AdminCategories extends Component {
                                                             <input
                                                                 id="age2"
                                                                 name="status"
-                                                                value="deactive"
+                                                                value="DEACTIVATE"
                                                                 type="radio"
                                                                 onChange={(event) => this.isChange(event)}
                                                             />
-                                                            <label for="age2">deactive</label>
+                                                            <label for="age2">DEACTIVATE</label>
                                                             </div>
                                                         </div>
 
