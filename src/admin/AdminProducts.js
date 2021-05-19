@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { header } from '../axios/header';
 import  Skeleton  from 'react-loading-skeleton';
 import {GET_PRODUCTS, getAvatar } from './../constant';
+import { property } from 'lodash';
 class AdminProducts extends Component {
 
     constructor(props) {
@@ -78,7 +79,17 @@ class AdminProducts extends Component {
                         {values.status}
                     </td>
                     <td>
-                        {values.stock}
+                        {values.productProperties.map((property)=>{
+                            return (
+                                <><p style={{textAlign: 'left', textTransform: 'uppercase', margin: '0'}}>{property.propertyName}</p>
+                                
+                                   { property.options.map((op)=>{
+                                        return (<p><b>{op.name}</b> : {op.subQuantity}</p>)
+                                    })}
+                                    <br/>
+                                </>
+                            )
+                        })}
                     </td>
                     <td >
                         {
@@ -202,7 +213,7 @@ class AdminProducts extends Component {
                                                 <th style={{ width: '100px' }} >Name</th>
                                                 <th style={{ width: '100px' }} >Image</th>
                                                 <th style={{ width: '100px' }} >Status</th>
-                                                <th style={{ width: '100px' }} >Stock</th>
+                                                <th style={{ width: '100px' }} >Property</th>
                                                 <th className="sorting" tabIndex={0} aria-controls="dataTable" rowSpan={1} colSpan={1} aria-label="Start date: activate to sort column ascending" style={{ width: '132px' }}>Action</th>
                                             </tr>
                                         </thead>
