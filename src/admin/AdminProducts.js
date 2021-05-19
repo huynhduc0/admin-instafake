@@ -1,36 +1,33 @@
-import React, { Component, Fragment, Redirect } from 'react';
 import axios from 'axios';
-import Axios from 'axios';
-import { notificationComponent, sosanh } from './../utils/notification';
-import { GET_POST, POST_HANDLE, MAIN_URL_DETAIL, PROFILE_URL_DETAIL, getAvatar } from '../constant'
-import { header,formDataHeader } from '../axios/header'
-import _ from 'lodash';
-import Skeleton from 'react-loading-skeleton';
-import { GET_CATEGORIES } from './../constant';
-class AdminCategories extends Component {
+import React, { Component } from 'react';
+import { header } from '../axios/header';
+import  Skeleton  from 'react-loading-skeleton';
+import {GET_PRODUCTS, getAvatar } from './../constant';
+class AdminProducts extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
+
             arrData: [],
             searchText: '',
-            id: '',
-            pagination: '',
-            totalPages: '',
-            last: true,
-            first: true,
-            cPage: 0,
-            page: [],
-            isLoading: true,
-            arrLoading: [],
 
-            category: {}
+            isLoading: true,
         }
     }
+
+    isChange = (event) => {
+
+        this.setState({ [event.target.name]: event.target.value });
+
+
+    };
+
 
     componentDidMount() {
         this.setState({ isLoading: true })
         console.log(header);
-        axios.get(GET_CATEGORIES, {
+        axios.get(GET_PRODUCTS, {
             headers: header
         })
             .then((response) => {
@@ -57,155 +54,31 @@ class AdminCategories extends Component {
             });
 
     }
-    rerender(page, reload) {
-        // if(this.state.cPage == page) return;
-        this.setState({ isLoading: reload })
-        axios.get(GET_POST + `?page=${page}`, {
-            headers: header
-        })
-            .then((response) => {
-                const data = response.data.content;
 
-                this.setState({ arrData: data });
-                this.setState({ pagination: response.data.pageable })
-                this.setState({ totalPages: response.data.totalPages })
-                this.setState({ last: response.data.last })
-                this.setState({ first: response.data.first })
-                var page = _.range(this.state.totalPages)
-                console.log(response)
-                this.setState({ cPage: response.data.pageable.pageNumber })
-                this.setState({ page: page })
-                this.setState({ isLoading: false })
-                if (reload) this.setState({ arrLoading: Array(data.length).fill(1) })
-            })
-    }
-
-    isChange = (event) => {
-
-        
-        console.log(event.target.name, event.target.files);
-        event.target.name == 'searchText' && this.setState({ [event.target.name]: event.target.value });
-
-        event.target.name !== 'searchText' && event.target.name !== 'image'   && this.setState({ category: {...this.state.category,  [event.target.name]: event.target.value } });
-
-        if(event.target.name == 'image') {
-            
-            this.setState({ categoryImage:  event.target.files[0] });
-        } 
-
-
-
-
-    };
-
-
-
-    handleImageLoaded(key) {
-        const { arrLoading } = this.state
-        arrLoading[key] = 0;
-        console.log(arrLoading)
-        this.setState({ arrLoading: arrLoading });
-    }
-
-
-    editCategories = (value) => {
-        this.setState({
-            categoryName: value.categoryName, id: value.id
-
-        })
-    }
-    handlePost(val) {
-        const { arr } = this.state
-        // console.log(val)
-        axios.post(POST_HANDLE, {
-            "id": val.id
-        }, {
-            headers: header,
-        }).then(async response => {
-            const data = response.data;
-            console.log(data);
-            arr.map((rp, i) => {
-                if (val.id == rp.id) {
-                    arr[i] = data
-                }
-            });
-            this.setState({ arr: arr })
-            // notificationComponent('success', "Update done")
-        }).catch(async err => {
-            // const data = response.data;
-            // console.log(data);
-            // arr.map( (rp,i)=>{
-            //     if(val.id == rp.id){
-            //         arr[i] = data
-            //     }
-            // });
-            // this.setState({arr:arr})
-            this.rerender(this.state.cPage, false);
-            notificationComponent('success', "Update done")
-            // notificationComponent('error', err.response?err.response.message:err.status)
-        });
-
-    }
-
-
-    addCategories = () => {
-        const {category, categoryImage}=this.state
-        // const {file} = 
-      
-        const formData = new FormData();
-        // formData.append('file',categoryImage)
-        formData.append('name', category.name)
-        formData.append('status',category.status)
-        formData.append('image', categoryImage)
-        // console.log(data);
-
-        axios.post(GET_CATEGORIES, formData, {
-            headers: formDataHeader,
-        }).then(async response => {
-            const data = response.data;
-            console.log(data);
-           
-            // notificationComponent('success', "Update done")
-        }).catch(async err => {
-            // const data = response.data;
-            // console.log(data);
-            // arr.map( (rp,i)=>{
-            //     if(val.id == rp.id){
-            //         arr[i] = data
-            //     }
-            // });
-            // this.setState({arr:arr})
-            // this.rerender(this.state.cPage, false);
-            console.log(err);
-            notificationComponent('success', "Update done")
-            // notificationComponent('error', err.response?err.response.message:err.status)
-        });
-    }
 
     render() {
 
-        // console.log(header);
+        const {isLoading, searchText, arrData}=this.state;
 
-        const { searchText, categoryName, totalPages, last, first, cPage, page, isLoading, arrLoading, category } = this.state;
         var result = [];
-        this.state.arrData.forEach((item) => {
+        arrData.forEach((item) => {
             if (item.name.indexOf(searchText) !== -1 || !searchText) {
                 result.push(item);
             }
         })
-
-        console.log(category);
-        console.log(arrLoading)
 
         const datas = result.map((values, key) => {
             return (
                 <tr key={key + 1} >
 
                     <td > {isLoading ? (<Skeleton />) : key + 1}</td>
-                    <td>  {isLoading ? (<Skeleton />) : values.name} </td>
-                    <td> {isLoading ? (<Skeleton height={100} />) : (<img src={getAvatar(values.image.mediaPath)} style={{ width: 80 }} />)} </td>
+                    <td>  {isLoading ? (<Skeleton />) :<> <p>{values.name}</p><small>{values.description}</small></> }</td>
+                    <td> {isLoading ? (<Skeleton height={100} />) : (values.medias.map(val => <img src={getAvatar(val.mediaPath)} style={{ width: 80 }} />))} </td>
                     <td>
                         {values.status}
+                    </td>
+                    <td>
+                        {values.stock}
                     </td>
                     <td >
                         {
@@ -225,6 +98,8 @@ class AdminCategories extends Component {
                 </tr>)
         });
 
+
+
         return (
             <div className="card shadow mb-4">
                 <div className="card-header py-3 row" >
@@ -239,7 +114,7 @@ class AdminCategories extends Component {
                                     <div id="dataTable_filter" className="row dataTables_filter">
 
                                         <input className="col-lg-4" type="text" placeholder="Search" aria-label="Search" onChange={(event) => this.isChange(event)} name="searchText" style={{ outline: 'none' }} />
-                                        <div className="btn btn-primary btn-vy" style={{ marginRight: '20px' }} data-toggle="modal" data-target="#exampleModalLong" >New Categories</div>
+                                        <div className="btn btn-primary btn-vy" style={{ marginRight: '20px' }} data-toggle="modal" data-target="#exampleModalLong" >New Product</div>
                                     </div>
                                 </div>
                             </div>
@@ -261,7 +136,7 @@ class AdminCategories extends Component {
                                                             <label className="small mb-1 mr-2">Name</label>
                                                             <input
                                                                 name="name"
-                                                                value={category.name}
+                                                                // value=name
                                                                 className="modal-product-input"
                                                                 type="text"
                                                                 onChange={(event) => this.isChange(event)}
@@ -297,7 +172,10 @@ class AdminCategories extends Component {
 
                                                         <div className="form-group">
                                                         <label className="small mb-1">Image</label>
-                                                        <input type="file" name="image" value={category.image}  onChange={(event) => this.isChange(event)} />
+                                                        <input type="file"
+                                                         name="image"
+                                                        //   value={category.image}  
+                                                          onChange={(event) => this.isChange(event)} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -305,7 +183,9 @@ class AdminCategories extends Component {
                                         </div>
                                         <div className="modal-footer">
                                             <button type="button" className="btn btn-secondary" data-dismiss="modal" >Close</button>
-                                            <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.addCategories()}>Save changes</button>
+                                            <button type="button" className="btn btn-primary" data-dismiss="modal" 
+                                            // onClick={() => this.addCategories()}
+                                            >Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -322,6 +202,7 @@ class AdminCategories extends Component {
                                                 <th style={{ width: '100px' }} >Name</th>
                                                 <th style={{ width: '100px' }} >Image</th>
                                                 <th style={{ width: '100px' }} >Status</th>
+                                                <th style={{ width: '100px' }} >Stock</th>
                                                 <th className="sorting" tabIndex={0} aria-controls="dataTable" rowSpan={1} colSpan={1} aria-label="Start date: activate to sort column ascending" style={{ width: '132px' }}>Action</th>
                                             </tr>
                                         </thead>
@@ -331,7 +212,7 @@ class AdminCategories extends Component {
                                     </table>
                                 </div>
                             </div>
-                            <div className="row">
+                            {/* <div className="row">
                                 <div className="col-sm-12 col-md-5">
                                     <div className="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div>
 
@@ -345,12 +226,13 @@ class AdminCategories extends Component {
                                     </ul>
                                 </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
-export default AdminCategories;
+
+export default AdminProducts;

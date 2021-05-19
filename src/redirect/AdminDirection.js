@@ -9,6 +9,8 @@ import Sidebar from '../component/Sidebar';
 import AdminCustomers from './../admin/AdminCustomers';
 import AdminCategories from './../admin/AdminCategories';
 import AdminOrders from './../admin/AdminOrders';
+import AdminProducts from '../admin/AdminProducts';
+import Media from './../admin/Media';
 
 class AdminDirection extends Component {
 
@@ -23,6 +25,8 @@ class AdminDirection extends Component {
 
                             <Route exact path="/admin/" component={Home} />
                             <Route path="/admin/admin-orders" component={AdminOrders} />
+                            <Route path="/admin/admin-products" component={AdminProducts} />
+                            <Route path="/admin/admin-media" component={Media} />
                             <Route exact path="/admin/admin-customers" component={AdminCustomers} />
                             <Route exact path="/admin/admin-categories" component={AdminCategories} />
                         </div>

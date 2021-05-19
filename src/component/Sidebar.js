@@ -32,21 +32,21 @@ export default class Sidebar extends Component {
 
 
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/admin/admin-orders">
-                    <i className="fa fa-flag" aria-hidden="true"></i>
-                        <span>Manage report</span></NavLink>
-                </li>
-
-                {/* <li className="nav-item">
                     <NavLink className="nav-link" to="/admin/admin-products">
                     <i className="fa fa-coffee" aria-hidden="true"></i>
                         <span>Manage products</span></NavLink>
-                </li> */}
+                </li>
+
+                <li className="nav-item">
+                    <NavLink className="nav-link" to="/admin/admin-media">
+                    <i className="fa fa-coffee" aria-hidden="true"></i>
+                        <span>Manage Media</span></NavLink>
+                </li>
 
                 <li className="nav-item">
                     <NavLink className="nav-link" to="/admin/admin-categories">
                     <i className="fa fa-coffee" aria-hidden="true"></i>
-                        <span>Manage posts</span></NavLink>
+                        <span>Manage categories</span></NavLink>
                 </li>
 
                 <li className="nav-item">

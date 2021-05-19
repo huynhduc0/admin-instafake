@@ -1,4 +1,8 @@
 export const header = {
     "Content-Type": "application/json",
-    "Authorization": localStorage.getItem('token')
+    "Authorization": "Bearer "+localStorage.getItem('token')
+}
+export const formDataHeader = {
+    "Content-Type": "multipart/form-data",
+    "Authorization":  "Bearer "+ localStorage.getItem('token')
 }

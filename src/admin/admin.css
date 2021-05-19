@@ -83,3 +83,16 @@
   font-weight: bold !important;
   text-transform: uppercase;
 }
+
+#dropdown-admin-media:hover #dropdown-admin-media-content {
+  visibility: visible;
+  opacity: 1;
+  transition: all linear 0.3s;
+
+}
+#dropdown-admin-media-content {
+  visibility: hidden ;
+  opacity: 0;
+  transition: all linear 0.3s;
+  cursor: pointer;
+}
