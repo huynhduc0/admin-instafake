@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import  Skeleton  from 'react-loading-skeleton';
-import { header } from '../axios/header';
+import { header,formDataHeader } from '../axios/header';
 import {GET_Media, getAvatar } from './../constant';
+import { notificationComponent, sosanh } from './../utils/notification';
 class Media extends Component {
     constructor(props) {
         super(props);
@@ -10,19 +11,65 @@ class Media extends Component {
 
             arrData: [],
             searchText: '',
-
+            medias:[],
             isLoading: true,
         }
     }
 
     isChange = (event) => {
-
         this.setState({ [event.target.name]: event.target.value });
+    };
+    addMedia = ()=>{
+        const {medias} = this.state
+        // console.log(medias)   
+        const formData = new FormData();
+        // formData.append('file',categoryImage)
+        for (let i = 0; i < medias.length; i++) {
+            formData.append('medias', medias[i]);
+        }
+        // formData.append('medias', medias)
+        // console.log(data);
 
+        axios.post(GET_Media, formData, {
+            headers: formDataHeader,
+        }).then(async response => {
+            const data = response.data;
+            console.log(data);
+            // notificationComponent('success', "Update done")
+        }).catch(async err => {
+            // const data = response.data;
+            // console.log(data);
+            // arr.map( (rp,i)=>{
+            //     if(val.id == rp.id){
+            //         arr[i] = data
+            //     }
+            // });
+            // this.setState({arr:arr})
+            // this.rerender(this.state.cPage, false);
+            console.log(err);
+            notificationComponent('success', "Update done")
+            // notificationComponent('error', err.response?err.response.message:err.status)
+        });
+    }
+
+    isChange = (event) => {
+        const {medias} = this.state
+        
+        console.log(event.target.name, event.target.files);
+        event.target.name == 'searchText' && this.setState({ [event.target.name]: event.target.value });
+
+        event.target.name !== 'searchText' && event.target.name !== 'image'   && this.setState({ category: {...this.state.category,  [event.target.name]: event.target.value } });
+
+        if(event.target.name == 'image') {
+            var meds = [];
+            var files = Array.from( event.target.files)
+            files.map((file)=>{
+                meds.push(file)
+            })
+            this.setState({ medias: meds});
+        } 
 
     };
-
-
     componentDidMount() {
         this.setState({ isLoading: true })
         console.log(header);
@@ -106,7 +153,7 @@ class Media extends Component {
                                 <div className="modal-dialog" role="document">
                                     <div className="modal-content">
                                         <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                            <h5 className="modal-title" id="exampleModalLongTitle">Add Media</h5>
                                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
@@ -116,47 +163,10 @@ class Media extends Component {
                                                 <div className="form-row">
                                                     <div className="col-md-6">
                                                         <div className="form-group">
-                                                            <label className="small mb-1 mr-2">Name</label>
-                                                            <input
-                                                                name="name"
-                                                                // value=name
-                                                                className="modal-product-input"
-                                                                type="text"
-                                                                onChange={(event) => this.isChange(event)}
-                                                            />
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label className="small mb-1">Status</label>
-                                                            <div>
-                                                            
-                                                            <input
-                                                                id="age1"
-                                                                name="status"
-                                                                value="active"
-                                                                type="radio"
-                                                                onChange={(event) => this.isChange(event)}
-                                                            />
-                                                            <label for="age1">active</label>
-                                                            </div>
-                                                            
-
-                                                            <div>
-                                                            
-                                                            <input
-                                                                id="age2"
-                                                                name="status"
-                                                                value="deactive"
-                                                                type="radio"
-                                                                onChange={(event) => this.isChange(event)}
-                                                            />
-                                                            <label for="age2">deactive</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="form-group">
                                                         <label className="small mb-1">Image</label>
                                                         <input type="file"
                                                          name="image"
+                                                         multiple
                                                         //   value={category.image}  
                                                           onChange={(event) => this.isChange(event)} />
                                                         </div>
@@ -167,7 +177,7 @@ class Media extends Component {
                                         <div className="modal-footer">
                                             <button type="button" className="btn btn-secondary" data-dismiss="modal" >Close</button>
                                             <button type="button" className="btn btn-primary" data-dismiss="modal" 
-                                            // onClick={() => this.addCategories()}
+                                            onClick={() => this.addMedia()}
                                             >Save changes</button>
                                         </div>
                                     </div>

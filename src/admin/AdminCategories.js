@@ -39,16 +39,16 @@ class AdminCategories extends Component {
                 console.log(data);
 
                 this.setState({ arrData: data });
-                // this.setState({pagination: response.data.pageable})
-                // this.setState({totalPages:response.data.totalPages})
-                // this.setState({last:response.data.last})
-                // this.setState({first:response.data.first})
-                // var page = _.range( this.state.totalPages )
-                // console.log(data.length)
-                // this.setState({page:page})
-                // this.setState({cPage:response.data.pageable.pageNumber})
+                this.setState({pagination: response.data.pageable})
+                this.setState({totalPages:response.data.totalPages})
+                this.setState({last:response.data.last})
+                this.setState({first:response.data.first})
+                var page = _.range( this.state.totalPages )
+                console.log(data.length)
+                this.setState({page:page})
+                this.setState({cPage:response.data.pageable.pageNumber})
                 this.setState({ isLoading: false })
-                // this.setState({arrLoading:Array(data.length).fill(1)})
+                this.setState({arrLoading:Array(data.length).fill(1)})
             }).catch((err) => {
                 console.log(err);
                 // localStorage.clear();
@@ -92,8 +92,6 @@ class AdminCategories extends Component {
             
             this.setState({ categoryImage:  event.target.files[0] });
         } 
-
-
 
 
     };

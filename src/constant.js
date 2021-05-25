@@ -4,6 +4,7 @@ export const LOGIN_URL = SERVER_URL+"users/login"
 // export const GET_USER = SERVER_URL+"admin/user";
 export const GET_CATEGORIES = SERVER_URL+"categories"
 export const GET_PRODUCTS = SERVER_URL+"merchant/products"
+export const PRODUCT_URL = SERVER_URL+"products"
 export const GET_REPORT_POST = SERVER_URL+"admin/report/post"
 export const GET_USER = SERVER_URL+"users/all"
 export const GET_POST = SERVER_URL+"admin/post"
