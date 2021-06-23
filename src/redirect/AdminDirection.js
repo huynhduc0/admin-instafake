@@ -11,7 +11,7 @@ import AdminOrders from './../admin/AdminOrders';
 import AdminProducts from '../admin/AdminProducts';
 import Media from './../admin/Media';
 import AdminUser from '../admin/AdminUser';
-
+import AdminRatting from './../admin/AdminRatting';
 class AdminDirection extends Component {
 
     render() {
@@ -29,6 +29,7 @@ class AdminDirection extends Component {
                             <Route path="/admin/admin-products" component={AdminProducts} />
                             <Route path="/admin/admin-media" component={Media} />
                             <Route exact path="/admin/admin-categories" component={AdminCategories} />
+                            <Route exact path="/admin/admin-ratting" component={AdminRatting} />
                         </div>
                     </div>
                 </div>

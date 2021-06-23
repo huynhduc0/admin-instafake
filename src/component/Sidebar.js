@@ -61,6 +61,12 @@ export default class Sidebar extends Component {
                         <span>Manage orders</span></NavLink>
                 </li>
 
+                <li className="nav-item">
+                    <NavLink className="nav-link" to="/admin/admin-ratting">
+                    <i className="fa fa-star" aria-hidden="true"></i>
+                        <span>Manage ratting</span></NavLink>
+                </li>
+
                 {/* <li className="nav-item">
                     <NavLink className="nav-link" to="/admin/admin-booking">
                     <i className="fa fa-coffee" aria-hidden="true"></i>
